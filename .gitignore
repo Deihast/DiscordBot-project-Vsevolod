@@ -2,6 +2,3 @@
 /package-lock.json
 /src/config
 /src/.env
-/src/routes
-/src/endpoints
-/src/index.js
