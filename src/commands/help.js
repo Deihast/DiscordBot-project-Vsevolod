@@ -20,7 +20,7 @@ module.exports = {
 
             return message.channel.send({ embeds:[help] });
         } else {
-            if (!client.commands.has(arg1)) return message.reply('Invalid command! Type !help');
+            if (!client.commands.has(arg1)) return message.reply(`Invalid command! Type ${prefix}help`);
 
             try {
                 const cmd = client.commands.get(arg1);
@@ -31,4 +31,3 @@ module.exports = {
         }
     }
 }
-

@@ -7,7 +7,7 @@ module.exports = {
     usage: `type ${prefix}info`,
 
     run (client, message, args) { 
-
+        
         const info = new MessageEmbed()
             .setColor('#84fc38')
             .setTitle('INFO')

@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection } = require ('discord.js');
-const { prefix } = require('./config/config.json');
+const { prefix, clientID, guildID } = require('./config/config.json');
 require('dotenv/config');
 
 const client = new Client({ intents: 131071, allowedMentions:["users"]});
@@ -14,7 +14,7 @@ client
     console.log(`Logged in as ${client.user.tag}`);
     loadCommands();
 })
-.on("messageCreate", message => {
+.on("messageCreate", async message => {
     if (message.author.bot) return;
     if (message.content.indexOf(prefix) !== 0) return;
 
@@ -24,9 +24,9 @@ client
     const command = client.commands.get(commandName);
 
     try {
-        command.run(client, message, args); 
+        await command.run(client, message, args); 
     } catch (error) {
-        message.reply(`Invalid command! Type ${prefix}help`);
+        await message.reply(`Invalid command! Type ${prefix}help`);
         console.log(error);
     }
 });
