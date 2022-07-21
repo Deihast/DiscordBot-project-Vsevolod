@@ -7,9 +7,9 @@ module.exports = {
     usage: `type ${prefix}info`,
 
     run (client, message, args) { 
-
+        
         const info = new MessageEmbed()
-            .setColor('#84fc38')
+            .setColor('#f8e4b1')
             .setTitle('INFO')
             .setURL('https://github.com/Deihast/DiscordBot-project-Vsevolod')
             .setDescription('This bot created for educational purpose')

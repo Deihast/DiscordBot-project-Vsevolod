@@ -13,14 +13,14 @@ module.exports = {
             const command = client.commands.map(element => `${element.name} - ${element.desc}`).join('\n');
 
             const help = new MessageEmbed()
-                .setColor('#84fc38')
+                .setColor('#f8e4b1')
                 .setTitle(`List of available commands: \nMy prefix is: ${prefix}`)
                 .setDescription(command)
                 .setFooter({ text: `For more type ${this.usage}`})
 
             return message.channel.send({ embeds:[help] });
         } else {
-            if (!client.commands.has(arg1)) return message.reply('Invalid command! Type !help');
+            if (!client.commands.has(arg1)) return message.reply(`Invalid command! Type ${prefix}help`);
 
             try {
                 const cmd = client.commands.get(arg1);
@@ -31,4 +31,3 @@ module.exports = {
         }
     }
 }
-
