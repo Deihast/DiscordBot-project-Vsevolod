@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { prefix } = require('../config/config.json'); 
+const { prefix } = config;
 
 module.exports = {
     name: "info",
@@ -7,9 +7,9 @@ module.exports = {
     usage: `type ${prefix}info`,
 
     run (client, message, args) { 
-
+        
         const info = new MessageEmbed()
-            .setColor('#84fc38')
+            .setColor('#ECEA6C')
             .setTitle('INFO')
             .setURL('https://github.com/Deihast/DiscordBot-project-Vsevolod')
             .setDescription('This bot created for educational purpose')
@@ -22,6 +22,6 @@ module.exports = {
             .setImage('attachment://info.jpg')
             .setFooter({ text: 'Beep Boop' })
 
-        message.channel.send({ embeds: [info], files: ['./imgs/info.jpg'] });
+        message.channel.send({ embeds: [info], files: ['src/imgs/info.jpg'] });
     }
 }
