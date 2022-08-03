@@ -14,10 +14,8 @@ client.commands = new Collection();
 client.minigameCommands = new Collection();
 
 client
-.on ("ready", async function () {
-    await initDb(config);
-})
 .on ("ready", async function() {
+    initDb(config);
     client.user.setActivity("поїдання млинців", {type: "COMPETING"});
     console.log(`Logged in as ${client.user.tag}`);
     await loadGeneralCommands();
@@ -72,5 +70,7 @@ async function loadMinigameCommands() {
 
     console.log(`Loaded ${commandsFiles.length} minigame commands!`);
 }
+
+// async function loadAdminCommands(){} future feature reminder
 
 client.login(process.env.TOKEN);

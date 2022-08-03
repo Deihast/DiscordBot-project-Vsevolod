@@ -7,15 +7,21 @@ const { prefix } = config;
 
 module.exports = {
     name: 'profile',
-    desc: 'get information about your profile',
-    usage: `${prefix}profile`,
+    desc: 'get information about your or someone`s profile',
+    usage: `${prefix}profile or ${prefix}profile @UserMention`,
 
     async run (client, message, args) {
+        let userId;
 
-        const userId = message.author.id;
-
+        if (!args[0]) {
+            userId = message.author.id;
+        } else {
+            const userDataX = message.mentions.members.first();
+            userId = userDataX.user.id;
+        }
+        
         if (!await UserInterface.checkUserValid(userId)){
-            return message.reply(`You do not have profile yet!\nType ${prefix}minigame to create one`);
+            return message.reply(`Profile does not exist yet!\nType ${prefix}minigame to create one`);
         }
 
         await createProfile(userId);
@@ -26,11 +32,13 @@ module.exports = {
             .setColor('#ECEA6C')
             .setTitle('============== Minigame profile ==============')
             .setDescription(`
-                Name: ${user.name}
-                Gender: ${user.gender}
-                Role: ${user.role}
-                Level: ${user.level}
-                Money: ${user.wallet}
+ 
+                <:lvl:1002951684831588463> Level: ${user.level} 
+                <:exp:1002943265726791710> Exp: ${user.exp} / 5 000 xp
+                
+                :moneybag: Balance:
+                - Rubies: ${user.rubies}  <:ruby:1002936046222311485> 
+                - Demon Coins: ${user.demonCoins}  <:demonCoin:1002936075712475216>
             `)
             .addFields( {name: '===============================================', value: '***Personal AGID:***'})
             .setImage(`attachment://pr_${userId}.png`)

@@ -13,8 +13,10 @@ const DbSchema = new Schema({
     name: { type: String, required: true},
     gender: String,
     role: String,
-    wallet: Number,
+    rubies: Number,
+    demonCoins: Number,
     level: Number,
+    exp: Number
 }, options);
 
 DbSchema.index({ uid: 1 }, { unique: true });

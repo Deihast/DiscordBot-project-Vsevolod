@@ -8,7 +8,7 @@ module.exports = {
     
     async run (client, message, args) {
 
-        if (!args[0]) return  message.reply('You... should ask the question, you know?');
+        if (!args[0]) return message.reply('You... should ask the question, you know?');
         
         const ball = new MessageEmbed()
             .setColor('#ECEA6C')

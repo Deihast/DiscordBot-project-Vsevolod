@@ -1,5 +1,6 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const UserInterface = require('../../models/interfaces/user.js');
+const { roles } = require('../../config/roles.js');
 const { prefix } = config;
 
 module.exports = {
@@ -19,17 +20,11 @@ module.exports = {
             name: message.author.username,
             gender: '***',
             role: '***',
-            wallet: 0,
+            rubies: 0,
+            demonCoins: 0,
             level: 1,
+            exp: 0
         }
-
-        const roles = [
-            'Warrior',
-            'Priest',
-            'Archer',
-            'Assassin',
-            'Mage',
-        ]
 
         const start = new MessageActionRow().addComponents(
             new MessageButton()
@@ -133,9 +128,9 @@ module.exports = {
                 await registerMessage.delete();
                 return collector.stop();
             }
-        })
+        });
 
         collector.on('end', () => {
-        })
+        });
     }
 }
