@@ -1,6 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 const { prefix, colorValue } = require('../config/config.json');
 
+const name = 'flip';
+const desc = 'heads or tails';
+const usage = `flip the coin ${prefix}flip`;
+
 const coin = [
     'HEADS',
     'TAILS'
@@ -18,14 +22,15 @@ async function createFlipEmbed () {
     return flip;
 }
 
+async function run (client, message, args) {
+    const flipEmb = await createFlipEmbed();
+
+    await message.channel.send( { embeds: [flipEmb]} );
+}
+
 module.exports = {
-    name: 'flip',
-    desc: 'heads or tails',
-    usage: `flip the coin ${prefix}flip`,
-
-    async run (client, message, args) {
-        const flipEmb = await createFlipEmbed();
-
-        await message.channel.send( { embeds: [flipEmb]} );
-    }
+    name,
+    desc,
+    usage,
+    run
 }

@@ -12,7 +12,8 @@ client.on ("ready", function() {
     client.user.setActivity("поїдання млинців", {type: "COMPETING"});
     console.log(`Logged in as ${client.user.tag}`);
     loadCommands();
-}).on("messageCreate", async message => {
+});
+client.on("messageCreate", async message => {
     if (message.author.bot) return;
     if (message.content.indexOf(prefix) !== 0) return;
 

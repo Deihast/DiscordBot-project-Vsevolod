@@ -1,6 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 const { prefix, colorValue } = require('../config/config.json');
 
+const name = "rand";
+const desc = "random number 0 - 100";
+const usage = `type ${prefix}rand`;
+
 async function createRandEmbed () {
     const num = Math.floor(Math.random() * 101);
 
@@ -12,13 +16,14 @@ async function createRandEmbed () {
     return number;
 }
 
+async function run (client, message, args) {
+    const number = await createRandEmbed();
+    await message.channel.send({ embeds: [number]});
+}
+
 module.exports = {
-    name: "rand",
-    desc: "random number 0 - 100",
-    usage: `type ${prefix}rand`,
-    
-    async run (client, message, args) {
-        const number = await createRandEmbed();
-        await message.channel.send({ embeds: [number]});
-    }
+    name,
+    desc,
+    usage,
+    run 
 }

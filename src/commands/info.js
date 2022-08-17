@@ -1,5 +1,9 @@
 const { MessageEmbed } = require('discord.js');
-const { prefix, colorValue } = require('../config/config.json'); 
+const { prefix, colorValue } = require('../config/config.json');
+
+const name = "info";
+const desc = "info about bot";
+const usage =  `type ${prefix}info`;
 
 async function createInfoEmbed () {
     const info = new MessageEmbed()
@@ -18,13 +22,14 @@ async function createInfoEmbed () {
     return info;
 }
 
-module.exports = {
-    name: "info",
-    desc: "info about bot",
-    usage: `type ${prefix}info`,
+async function run (client, message, args) { 
+    const info = await createInfoEmbed ();
+    await message.channel.send({ embeds: [info], files: ['./imgs/info.jpg'] });
+}
 
-    async run (client, message, args) { 
-        const info = await createInfoEmbed ();
-        await message.channel.send({ embeds: [info], files: ['./imgs/info.jpg'] });
-    }
+module.exports = {
+    name,
+    desc,
+    usage,
+    run
 }
