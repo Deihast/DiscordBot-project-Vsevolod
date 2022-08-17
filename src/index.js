@@ -5,7 +5,7 @@ const loginRouter = require('./routes/login.js');
 const registerRouter = require('./routes/register.js');
 const logoutRouter = require('./routes/logout.js');
 require('dotenv/config');
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 const app = express();
 app.get('/', (req, res) => {
