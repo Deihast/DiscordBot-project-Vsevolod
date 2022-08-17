@@ -1,27 +1,27 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection } = require ('discord.js');
-const { prefix, clientID, guildID } = require('./config/config.json');
+const { prefix, clientID, guildID, intentsValue } = require('./config/config.json');
 const config  = require('./config/config.json');
 require('dotenv').config({ path: path.resolve(__dirname, '../src/.env')});
 const initDb = require('./initDb.js');
 
 global.config = config;
 
-const client = new Client({ intents: 131071, allowedMentions:["users"]});
+const client = new Client({ intents: intentsValue, allowedMentions:["users"]});
 
 client.commands = new Collection();
 client.minigameCommands = new Collection();
 
-client
-.on ("ready", async function() {
+client.on ("ready", async function() {
     initDb(config);
     client.user.setActivity("поїдання млинців", {type: "COMPETING"});
     console.log(`Logged in as ${client.user.tag}`);
     await loadGeneralCommands();
     await loadMinigameCommands();
-})
-.on("messageCreate", async message => {
+});
+
+client.on("messageCreate", async message => {
     if (message.author.bot) return;
     if (message.content.indexOf(prefix) !== 0) return;
 
@@ -70,7 +70,5 @@ async function loadMinigameCommands() {
 
     console.log(`Loaded ${commandsFiles.length} minigame commands!`);
 }
-
-// async function loadAdminCommands(){} future feature reminder
 
 client.login(process.env.TOKEN);

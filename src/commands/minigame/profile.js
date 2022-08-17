@@ -3,50 +3,11 @@ const { createCanvas, loadImage, registerFont } = require('canvas');
 const UserInterface = require('../../models/interfaces/user.js');
 const path = require('node:path');
 const fs = require('fs');
-const { prefix } = config;
+const { prefix, colorValue } = config;
 
-module.exports = {
-    name: 'profile',
-    desc: 'get information about your or someone`s profile',
-    usage: `${prefix}profile or ${prefix}profile @UserMention`,
-
-    async run (client, message, args) {
-        let userId;
-
-        if (!args[0]) {
-            userId = message.author.id;
-        } else {
-            const userDataX = message.mentions.members.first();
-            userId = userDataX.user.id;
-        }
-        
-        if (!await UserInterface.checkUserValid(userId)){
-            return message.reply(`Profile does not exist yet!\nType ${prefix}minigame to create one`);
-        }
-
-        await createProfile(userId);
-
-        const user = await UserInterface.findUserById(userId);
-
-        const guidProfile = new MessageEmbed()
-            .setColor('#ECEA6C')
-            .setTitle('============== Minigame profile ==============')
-            .setDescription(`
- 
-                <:lvl:1002951684831588463> Level: ${user.level} 
-                <:exp:1002943265726791710> Exp: ${user.exp} / 5 000 xp
-                
-                :moneybag: Balance:
-                - Rubies: ${user.rubies}  <:ruby:1002936046222311485> 
-                - Demon Coins: ${user.demonCoins}  <:demonCoin:1002936075712475216>
-            `)
-            .addFields( {name: '===============================================', value: '***Personal AGID:***'})
-            .setImage(`attachment://pr_${userId}.png`)
-       
-        await message.channel.send( {embeds: [guidProfile], files: [`src/imgs/profiles/pr_${userId}.png`] } );
-        await deleteProfile(userId);
-    }
-}
+const name = 'profile';
+const desc = 'get information about your or someone`s profile';
+const usage = `${prefix}profile or ${prefix}profile @UserMention`;
 
 async function createProfile (userId) {
     const id = userId;
@@ -80,4 +41,48 @@ async function createProfile (userId) {
 
 async function deleteProfile (userId) {
     fs.unlinkSync(path.join(__dirname, `../../imgs/profiles/pr_${userId}.png`));
+}
+
+async function run (client, message, args) {
+    let userId;
+
+    if (!args[0]) {
+        userId = message.author.id;
+    } else {
+        const userDataX = message.mentions.members.first();
+        userId = userDataX.user.id;
+    }
+    
+    if (!await UserInterface.checkUserValid(userId)){
+        return message.reply(`Profile does not exist yet!\nType ${prefix}minigame to create one`);
+    }
+
+    await createProfile(userId);
+
+    const user = await UserInterface.findUserById(userId);
+
+    const guidProfile = new MessageEmbed()
+        .setColor(colorValue)
+        .setTitle('============== Minigame profile ==============')
+        .setDescription(`
+
+            <:lvl:1002951684831588463> Level: ${user.level} 
+            <:exp:1002943265726791710> Exp: ${user.exp} / 5 000 xp
+            
+            :moneybag: Balance:
+            - Rubies: ${user.rubies}  <:ruby:1002936046222311485> 
+            - Demon Coins: ${user.demonCoins}  <:demonCoin:1002936075712475216>
+        `)
+        .addFields( {name: '===============================================', value: '***Personal AGID:***'})
+        .setImage(`attachment://pr_${userId}.png`)
+   
+    await message.channel.send( {embeds: [guidProfile], files: [`src/imgs/profiles/pr_${userId}.png`] } );
+    await deleteProfile(userId);
+}
+
+module.exports = {
+    name,
+    desc,
+    usage,
+    run
 }
