@@ -2,7 +2,7 @@
   "name": "project_bot",
   "version": "1.0.0",
   "description": "Discord bot",
-  "main": "/src/index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "nodemon --experimental-json-modules --experimental-specifier-resolution=node",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,6 @@
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
-    "body-parser": "^1.20.0",
     "canvas": "^2.9.3",
     "discord-api-types": "^0.36.1",
     "discord.js": "^13.8.1",
