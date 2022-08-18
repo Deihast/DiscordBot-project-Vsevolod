@@ -3,41 +3,38 @@ const { createCanvas, loadImage, registerFont } = require('canvas');
 const UserInterface = require('../../models/interfaces/user.js');
 const path = require('node:path');
 const fs = require('fs');
-const { prefix } = config;
+const { prefix, colorValue } = config;
 
-module.exports = {
-    name: 'profile',
-    desc: 'get information about your profile',
-    usage: `${prefix}profile`,
+const name ='profile';
+const desc = 'get information about your profile';
+const usage = `${prefix}profile`;
 
-    async run (client, message, args) {
+async function run (client, message, args) {
 
-        const userId = message.author.id;
+    const userId = message.author.id;
 
-        if (!await UserInterface.checkUserValid(userId)){
-            return message.reply(`You do not have profile yet!\nType ${prefix}minigame to create one`);
-        }
-
-        await createProfile(userId);
-
-        const user = await UserInterface.findUserById(userId);
-
-        const guidProfile = new MessageEmbed()
-            .setColor('#ECEA6C')
-            .setTitle('============== Minigame profile ==============')
-            .setDescription(`
-                Name: ${user.name}
-                Gender: ${user.gender}
-                Role: ${user.role}
-                Level: ${user.level}
-                Money: ${user.wallet}
-            `)
-            .addFields( {name: '===============================================', value: '***Personal AGID:***'})
-            .setImage(`attachment://pr_${userId}.png`)
-       
-        await message.channel.send( {embeds: [guidProfile], files: [`src/imgs/profiles/pr_${userId}.png`] } );
-        await deleteProfile(userId);
+    if (!await UserInterface.checkUserValid(userId)){
+        return message.reply(`You do not have profile yet!\nType ${prefix}minigame to create one`);
     }
+
+    await createProfile(userId);
+
+    const user = await UserInterface.findUserById(userId);
+
+    const guidProfile = new MessageEmbed()
+        .setColor(colorValue)
+        .setTitle('============== Minigame profile ==============')
+        .setDescription(`
+            Name: ${user.name}
+            Gender: ${user.gender}
+            Role: ${user.role}
+            Level: ${user.level}
+        `)
+        .addFields( {name: '===============================================', value: '***Personal AGID:***'})
+        .setImage(`attachment://pr_${userId}.png`)
+   
+    await message.channel.send( {embeds: [guidProfile], files: [`src/imgs/profiles/pr_${userId}.png`] } );
+    await deleteProfile(userId);
 }
 
 async function createProfile (userId) {
@@ -72,4 +69,11 @@ async function createProfile (userId) {
 
 async function deleteProfile (userId) {
     fs.unlinkSync(path.join(__dirname, `../../imgs/profiles/pr_${userId}.png`));
+}
+
+module.exports = {
+    name,
+    desc,
+    usage,
+    run
 }

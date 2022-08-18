@@ -13,7 +13,6 @@ const DbSchema = new Schema({
     name: { type: String, required: true},
     gender: String,
     role: String,
-    wallet: Number,
     level: Number,
 }, options);
 

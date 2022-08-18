@@ -1,0 +1,12 @@
+{
+    "prefix": "!",
+    "intentsValue": "131071",
+    "colorValue": "#ECEA6C",
+    "mongodb": {
+        "url": "mongodb://localhost:27017/guildProfiles",
+        "mongooseOptions": {
+            "useNewUrlParser": true,
+            "useUnifiedTopology": true
+        }
+    }
+}
