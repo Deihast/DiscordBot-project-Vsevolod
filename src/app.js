@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection } = require ('discord.js');
-const { prefix, clientID, guildID, intentsValue } = require('./config/config.json');
+const { prefix, intentsValue } = require('./config/config.json');
 const config  = require('./config/config.json');
 require('dotenv').config({ path: path.resolve(__dirname, '../src/.env')});
 const initDb = require('./initDb.js');

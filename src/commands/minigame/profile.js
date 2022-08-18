@@ -60,7 +60,7 @@ async function run (client, message, args) {
     await createProfile(userId);
 
     const user = await UserInterface.findUserById(userId);
-
+    
     const guidProfile = new MessageEmbed()
         .setColor(colorValue)
         .setTitle('============== Minigame profile ==============')

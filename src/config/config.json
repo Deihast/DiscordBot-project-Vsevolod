@@ -1,0 +1,14 @@
+{
+    "prefix": "!",
+    "clientID": "994219616396136460",
+    "guildID": "419573485388431375",
+    "intentsValue": "131071",
+    "colorValue": "#ECEA6C",
+    "mongodb": {
+        "url": "mongodb://localhost:27017/guildProfiles",
+        "mongooseOptions": {
+            "useNewUrlParser": true,
+            "useUnifiedTopology": true
+        }
+    }
+}
