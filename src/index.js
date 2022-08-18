@@ -1,26 +1,25 @@
-const express = require('express');
+const express = require ('express');
 const http = require('http');
-const path = require('node:path');
-const { port } = require ('./config/config.json');
-
-const infoRoutes = require('./routes/about.js');
-const authorRoutes = require('./routes/author.js');
-const funcRoutes = require('./routes/functionality.js');
-const gameRoutes = require('./routes/minigame.js');
+const newProfileRouter = require('./routes/newprofile.js');
+const loginRouter = require('./routes/login.js');
+const registerRouter = require('./routes/register.js');
+const logoutRouter = require('./routes/logout.js');
+require('dotenv/config');
+const port = process.env.PORT || 3000;
 
 const app = express();
 app.get('/', (req, res) => {
-    const root = path.join(__dirname, './endpoints/start.html')
-    return res.status(200).sendFile(root);
-})
+    return res.status(200).send('Welcome to starter page');
+});
 
-app.use('/', infoRoutes);
-app.use('/', authorRoutes);
-app.use('/', funcRoutes);
-app.use('/', gameRoutes);
+app.use(express.json());
+app.use('/', newProfileRouter);
+app.use('/', registerRouter.router);
+app.use('/', loginRouter.router);
+app.use('/', logoutRouter.router);
 
 const server = http.createServer(app);
 
-server.listen( {port: port }, () => {
-    console.log(`Server is listening on port : ${port}`);
-})
+server.listen({ port: port }, () => {
+    console.log(`Server is listening on port ${port}`);
+});

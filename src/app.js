@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection } = require ('discord.js');
-const { prefix, clientID, guildID, intentsValue, colorValue } = require('./config/config.json');
+const { prefix, intentsValue } = require('./config/config.json');
 require('dotenv/config');
 
 const client = new Client({ intents: intentsValue, allowedMentions:["users"]});
@@ -13,6 +13,7 @@ client.on ("ready", function() {
     console.log(`Logged in as ${client.user.tag}`);
     loadCommands();
 });
+
 client.on("messageCreate", async message => {
     if (message.author.bot) return;
     if (message.content.indexOf(prefix) !== 0) return;
