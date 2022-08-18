@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = (config) => {
+initDb = (config) => {
     const { url, mongooseOptions: options } = config.mongodb;
     try {
         mongoose.connect (url, options)
@@ -8,3 +8,5 @@ module.exports = (config) => {
         console.log('ERROR: ',error);
     }
 }
+
+module.exports = { initDb }

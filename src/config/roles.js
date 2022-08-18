@@ -1,9 +1,9 @@
-module.exports = {
-    roles : [
-        'Warrior',
-        'Priest',
-        'Archer',
-        'Assassin',
-        'Mage',
-    ]
-}
+const roles = [
+    'Warrior',
+    'Priest',
+    'Archer',
+    'Assassin',
+    'Mage',
+]
+
+module.exports = { roles }

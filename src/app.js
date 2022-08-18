@@ -4,7 +4,7 @@ const { Client, Collection } = require ('discord.js');
 const { prefix, intentsValue} = require('./config/config.json');
 const config  = require('./config/config.json');
 require('dotenv').config({ path: path.resolve(__dirname, '../src/.env')});
-const initDb = require('./initDb.js');
+const { initDb } = require('./initDb.js');
 
 global.config = config;
 

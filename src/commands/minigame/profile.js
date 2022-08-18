@@ -10,7 +10,6 @@ const desc = 'get information about your profile';
 const usage = `${prefix}profile`;
 
 async function run (client, message, args) {
-
     const userId = message.author.id;
 
     if (!await UserInterface.checkUserValid(userId)){
@@ -37,8 +36,7 @@ async function run (client, message, args) {
     await deleteProfile(userId);
 }
 
-async function createProfile (userId) {
-    const id = userId;
+async function createProfile (id) {
     const user = await UserInterface.findUserById(id);
 
     registerFont(path.join(__dirname, '../../imgs/userProfile/Ubuntu-L.ttf'), { family: 'Ubuntu' });
@@ -67,8 +65,8 @@ async function createProfile (userId) {
     fs.writeFileSync(path.join(__dirname, `../../imgs/profiles/pr_${id}.png`), attachment);
 }
 
-async function deleteProfile (userId) {
-    fs.unlinkSync(path.join(__dirname, `../../imgs/profiles/pr_${userId}.png`));
+async function deleteProfile (id) {
+    fs.unlinkSync(path.join(__dirname, `../../imgs/profiles/pr_${id}.png`));
 }
 
 module.exports = {

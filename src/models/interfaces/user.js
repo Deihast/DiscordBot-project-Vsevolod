@@ -13,22 +13,12 @@ async function findUserById (uid) {
 
 async function checkUserValid (uid) {
     const check = await UserModel.exists( { uid } );
-
-    if (!check) {
-        return false;
-    } else {
-        return true;
-    }
+    return check;
 }
 
 async function checkGuildId (gid) {
     const check = await UserModel.exists( {gid} );
-    
-    if (!check) {
-        return false;
-    } else {
-        return true;
-    }
+    return check;
 }
 
 module.exports =  { 
