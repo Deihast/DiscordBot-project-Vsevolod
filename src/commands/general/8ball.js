@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { prefix, colorValue } = require('../config/config.json');
+const { prefix, colorValue } = config;
 
 const name = '8ball';
 const desc = 'get answer on your question';
