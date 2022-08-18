@@ -7,7 +7,7 @@ router.post('/login', (req, res) => {
         const { login, password } = req.body;
         const user = service.service.loginUser(login, password);
 
-        res.status(200).json({ authKey: user.key, hashPass: user.password });
+        res.status(200).json('OK');
     } catch (error) {
         console.log(error);
         res.status(400).send('BAD_REQUEST');
