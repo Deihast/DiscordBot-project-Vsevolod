@@ -27,14 +27,26 @@ async function findUserById (uid) {
     return user;
 }
 
+async function getAllUsers () {
+    const users = [];
+    const cursor = UserModel.find().cursor();
+
+    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+        const user = { 
+            name : doc.name,
+            uid: doc.uid
+        }
+
+        users.push(user);
+    }
+
+    return users;
+}
+
 async function checkUserValid (uid) {
     const check = await UserModel.exists({ uid });
 
-    if (!check) {
-        return false;
-    } else {
-        return true;
-    }
+    return check;
 }
 
 async function addExp (uid, exp) {
@@ -72,14 +84,6 @@ async function addDemonCoins (uid, value) {
     await UserModel.findOneAndUpdate({ uid: uid }, {$set: {demonCoins: newDCoins} }, { upsert: false, new: true });
 }
 
-// async function spendRubies (uid, value) {
-
-// }
-
-// async function spendDemonCoins (uid, value) {
-
-// }
-
 module.exports =  { 
     createUser,
     deleteUser,
@@ -90,5 +94,6 @@ module.exports =  {
     checkUserValid,
     addExp,
     addRubies,
-    addDemonCoins
+    addDemonCoins,
+    getAllUsers
 };

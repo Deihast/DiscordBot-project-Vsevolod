@@ -4,7 +4,7 @@
     "guildID": "419573485388431375",
     "intentsValue": "131071",
     "colorValue": "#ECEA6C",
-    "mongodb": {
+    "mongodbPlayers": {
         "url": "mongodb://localhost:27017/guildProfiles",
         "mongooseOptions": {
             "useNewUrlParser": true,

@@ -13,35 +13,39 @@ const client = new Client({ intents: intentsValue, allowedMentions:["users"]});
 client.commands = new Collection();
 client.minigameCommands = new Collection();
 
-client.on ("ready", async function() {
-    initDb(config);
-    client.user.setActivity("поїдання млинців", {type: "COMPETING"});
-    console.log(`Logged in as ${client.user.tag}`);
-    await loadGeneralCommands();
-    await loadMinigameCommands();
-});
+async function initBot () {
+    client.on ("ready", async function() {
+        initDb(config);
+        client.user.setActivity("поїдання млинців", {type: "COMPETING"});
+        console.log(`Logged in as ${client.user.tag}`);
+        await loadGeneralCommands();
+        await loadMinigameCommands();
+    });
 
-client.on("messageCreate", async message => {
-    if (message.author.bot) return;
-    if (message.content.indexOf(prefix) !== 0) return;
+    client.on("messageCreate", async message => {
+        if (message.author.bot) return;
+        if (message.content.indexOf(prefix) !== 0) return;
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const commandName = args.shift().toLowerCase();
-    let command;
+        const args = message.content.slice(prefix.length).trim().split(/ +/g);
+        const commandName = args.shift().toLowerCase();
+        let command;
 
-    if (!client.commands.get(commandName)){
-        command = client.minigameCommands.get(commandName);
-    } else {
-        command = client.commands.get(commandName);
-    }
-    
-    try {
-        await command.run(client, message, args);
-    } catch (error) {
-        await message.reply(`Invalid command! Type ${prefix}help`);
-        console.log(error);
-    }
-});
+        if (!client.commands.get(commandName)){
+            command = client.minigameCommands.get(commandName);
+        } else {
+            command = client.commands.get(commandName);
+        }
+        
+        try {
+            await command.run(client, message, args);
+        } catch (error) {
+            await message.reply(`Invalid command! Type ${prefix}help`);
+            console.log(error);
+        }
+    });
+
+    client.login(process.env.TOKEN);
+}
 
 async function loadGeneralCommands() {
     const commandsPath = path.join(__dirname, 'commands/general');
@@ -71,4 +75,4 @@ async function loadMinigameCommands() {
     console.log(`Loaded ${commandsFiles.length} minigame commands!`);
 }
 
-client.login(process.env.TOKEN);
+module.exports = { initBot }

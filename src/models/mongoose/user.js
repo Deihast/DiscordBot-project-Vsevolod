@@ -7,7 +7,7 @@ const options = {
     timestamps: true,
 }
 
-const DbSchema = new Schema({
+const DbSchemaPlayers = new Schema({
     gid: { type: String, required: true},
     uid: { type: String, required: true},
     name: { type: String, required: true},
@@ -19,6 +19,6 @@ const DbSchema = new Schema({
     exp: Number
 }, options);
 
-DbSchema.index({ uid: 1 }, { unique: true });
+DbSchemaPlayers.index({ uid: 1 }, { unique: true });
 
-module.exports =  mongoose.model(modelName, DbSchema, modelName);
+module.exports =  mongoose.model(modelName, DbSchemaPlayers, modelName);

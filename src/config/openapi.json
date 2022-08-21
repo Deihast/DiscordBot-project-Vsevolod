@@ -1,0 +1,189 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "version": "0.0.1",
+        "title": "Admin Panel"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Server for admins"
+        }
+    ],
+    "paths": {
+        "/users" : {
+            "get": {
+                "summary": "Get all Users from DB",
+                "tags": [
+                    "LIST OF USERS"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Get users",
+                        "content": {
+                            "application.json" : {
+                                "schema" : {
+                                    "$ref": "#/components/schemas/users"
+                                }
+                            }
+                        }
+                    },
+                    "default" : {
+                        "description": "Some error occurred",
+                        "content": {
+                            "application.json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{uid}": {
+            "get" : {
+                "summary": "Get User with UID",
+                "tags": [
+                    "LIST OF USERS"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "required": true,
+                        "description": "User ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "Get user by id",
+                        "content": {
+                            "application.json" : {
+                                "schema": {
+                                    "$ref" : "#/components/schemas/user"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Some error occurred",
+                        "content": {
+                            "application.json" : {
+                                "schema" : {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post" : {
+                "summary": "Log in as admin",
+                "tags": [
+                    "Authorization"
+                ],
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "query",
+                        "required": true,
+                        "description": "Admin ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "description": "Admin PASSWORD",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Log in",
+                        "content": {
+                            "application.json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/admin"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application.json" : {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Some error ocurred",
+                        "content": {
+                            "application.json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "user":{
+                "type": "object",
+                "required": [
+                    "name",
+                    "uid"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "uid": {
+                        "type": "string"
+                    }
+                }
+            },
+            "users" : {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/user"
+                }
+            },
+            "error" : {
+                "type": "string"
+            },
+            "admin": {
+                "type": "object",
+                "required": [
+                    "uid",
+                    "password"
+                ],
+                "properties": {
+                    "uid": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
