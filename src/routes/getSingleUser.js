@@ -1,8 +1,9 @@
 const express = require ('express');
 const router = express.Router();
 const UserInterface = require('../models/interfaces/user.js')
+const controller = require('../middleware/authContoller.js');
 
-router.get('/:uid', async (req, res) => {
+router.get('/:uid', controller.checkToken, async (req, res) => {
     const userID = req.params.uid
     const userInfo = await UserInterface.findUserById(userID);
 

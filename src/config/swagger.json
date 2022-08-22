@@ -17,6 +17,11 @@
                 "tags": [
                     "LIST OF USERS"
                 ],
+                "security" : [
+                    {
+                        "bearerAuth" : []
+                    }
+                ],
                 "responses": {
                     "200":{
                         "description": "Get users",
@@ -26,6 +31,16 @@
                                     "$ref": "#/components/schemas/users"
                                 }
                             }
+                        }
+                    },
+                      "401" : {
+                        "description" : "UNAUTHORIZED",
+                        "content" : {
+                          "application.json": {
+                              "schema" : {
+                                "$ref" : "#/components/schemas/user"
+                              }
+                          }
                         }
                     },
                     "default" : {
@@ -58,6 +73,11 @@
                         }
                     }
                 ],
+                "security" : [
+                    {
+                        "bearerAuth" : []
+                    }
+                ],
                 "responses": {
                     "200" : {
                         "description": "Get user by id",
@@ -67,6 +87,16 @@
                                     "$ref" : "#/components/schemas/user"
                                 }
                             }
+                        }
+                    },
+                    "401" : {
+                        "description" : "UNAUTHORIZED",
+                        "content" : {
+                          "application.json": {
+                              "schema" : {
+                                "$ref" : "#/components/schemas/user"
+                              }
+                          }
                         }
                     },
                     "default": {
@@ -184,6 +214,18 @@
                     }
                 }
             }
+        },
+        "securitySchemes" : {
+            "bearerAuth" : {
+                "type" : "http",
+                "scheme" : "bearer",
+                "bearerFormat" : "JWT"
+            }
         }
-    }
+    },
+    "security" : [
+      {
+        "bearerAuth" : []
+      }
+    ]
 }

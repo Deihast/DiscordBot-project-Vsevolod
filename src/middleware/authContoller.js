@@ -6,7 +6,7 @@ const secret = process.env.SECRET;
 const key = process.env.KEY;
 const jwt = require('jsonwebtoken');
 
-generateAccessToken = (uid, login) => {
+const generateAccessToken = (uid, login) => {
     const payload = {
         uid,
         login
@@ -34,8 +34,17 @@ class authController {
         return res.status(200).send(`Welcome!, ${adminInfo.login}, authtoken: ${token}`);
     } 
     
-    async checkToken (req, res) {
+    async checkToken (req, res, next) {
+        const { authorization } = req.headers;
         
+        try {
+            const token = authorization.split(' ')[1];
+            if (!token) return res.status(401).send('UNAUTHORIZED');
+            const decodedToken = jwt.verify(token, key);
+            next();
+        } catch (err) {
+            return res.status(401).send('UNAUTHORIZED');
+        }
     }
 }
 
